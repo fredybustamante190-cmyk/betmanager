@@ -14,8 +14,13 @@
     </div>
 
     <div class="mb-3">
+    <label class="form-label">Correo electrónico</label>
+    <input type="email" name="correo" class="form-control" value="{{ $usuario->correo }}" required>
+</div>
+
+    <div class="mb-3">
         <label class="form-label">Password</label>
-        <input type="text" name="password" value="{{ $usuario->password }}" class="form-control">
+        <input type="password" name="password" class="form-control" placeholder="Dejar en blanco para no cambiar">
     </div>
 
     <button type="submit" class="btn btn-primary">

@@ -26,6 +26,13 @@
     <button type="submit" class="btn btn-primary">
         Ingresar
     </button>
+
+<div class="mt-3 text-center">
+    <a href="{{ route('register') }}" class="text-decoration-none">
+        ¿No tienes cuenta? <strong>Regístrate aquí</strong>
+    </a>
+</div>
+
 </form>
 
 @endsection

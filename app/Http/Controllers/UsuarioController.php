@@ -24,6 +24,7 @@ public function store(Request $request)
 {
 Usuario::create([
     'nombre_usuario' => $request->nombre_usuario,
+    'correo' => $request->correo,
     'password' => Hash::make($request->password),
     'fecha_registro' => now(),
     'tipo_usuario' => $request->tipo_usuario
@@ -43,12 +44,20 @@ public function update(Request $request, $id)
 {
     $usuario = Usuario::findOrFail($id);
 
-    $usuario->update([
+    $data = [
         'nombre_usuario' => $request->nombre_usuario,
-        'password' => Hash::make($request->password),
-    ]);
+        'correo' => $request->correo,
+    ];
 
-    return redirect()->route('usuarios.index');
+    // SOLO si escribió nueva contraseña
+    if ($request->password) {
+        $data['password'] = Hash::make($request->password);
+    }
+
+    $usuario->update($data);
+
+    return redirect()->route('usuarios.index')
+        ->with('success', 'Usuario actualizado correctamente');
 }
 
     public function destroy($id)

@@ -10,9 +10,11 @@
 
 <h2 class="mb-3">Lista de Usuarios</h2>
 
-<a href="{{ route('usuarios.create') }}" class="btn btn-primary mb-3">
-    <i class="fa-solid fa-user-plus"></i> Nuevo Usuario
-</a>
+@if(session('tipo_usuario') == 'admin')
+    <a href="{{ route('usuarios.create') }}" class="btn btn-primary mb-3">
+        <i class="fa-solid fa-user-plus"></i> Nuevo Usuario
+    </a>
+@endif
 
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
@@ -31,17 +33,21 @@
             <td>{{ $usuario->nombre_usuario }}</td>
             <td>{{ $usuario->password }}</td>
             <td>
-                <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="btn btn-warning btn-sm">
-                    <i class="fa-solid fa-pen"></i>
-                </a>
 
-                <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </form>
+                @if(session('tipo_usuario') == 'admin')
+                    <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="btn btn-warning btn-sm">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+
+                    <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                @endif
+
             </td>
         </tr>
         @endforeach
